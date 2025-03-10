@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./StationList.css";
+import * as Sentry from "@sentry/react";
 
 const API_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -24,7 +25,8 @@ const [stations, setStations] = useState<Station[]>([]);
         setStations(res.data.stations || []);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        Sentry.captureException(err);
         setError("Failed to load stations. Please try again later.");
         setLoading(false);
       });

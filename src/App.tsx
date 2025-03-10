@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import StationList from "./Components/StationList";
 import MeasurementList from "./Components/MeasurementList";
 import "./App.css"; 
+import * as Sentry from "@sentry/react";
+
+Sentry.init({
+  dsn: `${process.env.REACT_APP_SENTRY_DSN}`,
+});
+
+
 
 const App: React.FC = () => {
   const [selectedStation, setSelectedStation] = useState<{ id: string; name: string } | null>(null);

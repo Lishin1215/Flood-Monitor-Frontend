@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "./ChartComponent.css";
+import * as Sentry from "@sentry/react";
 
 interface WaterLevelReading {
   dateTime: string;
@@ -76,6 +77,7 @@ const ChartComponent: React.FC<ChartProps> = ({ notation }) => {
         }
       })
       .catch((err) => {
+        Sentry.captureException(err);
         console.error("Error fetching readings:", err);
         setHasData(false);
       })

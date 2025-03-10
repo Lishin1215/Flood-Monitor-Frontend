@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ChartComponent from "./ChartComponent";
 import "./MeasurementList.css";
+import * as Sentry from "@sentry/react";
 
 // export default MeasurementList;
 interface Measurement {
@@ -34,14 +35,15 @@ interface MeasurementListProps {
   
           setLoading(false);
         })
-        .catch(() => {
-          setError("Failed to load measurements. Please try again later.");
-          setLoading(false);
+        .catch((err) => {
+            Sentry.captureException(err);
+            setError("Failed to load measurements. Please try again later.");
+            setLoading(false);
         });
     }, [stationId]);
   
     if (loading) {
-      return <p className="text-center text-gray-500">Loading measurements...</p>;
+        return <p className="text-center text-gray-500">Loading measurements...</p>;
     }
   
     if (error) {

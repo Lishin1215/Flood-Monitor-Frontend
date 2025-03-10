@@ -1,0 +1,59 @@
+.measurement-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  .measurement-toggle-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  
+  
+  .measurement-toggle-button {
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  
+  .measurement-toggle-button.active {
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    transform: scale(1.05);
+  }
+  
+  
+  .measurement-toggle-button.inactive {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .measurement-toggle-button:hover {
+    background-color: #0056b3;
+    color: white;
+  }
+  
+  
+  .measurement-details {
+    margin-top: 20px;
+    padding: 10px;
+    background: #e0f7fa;
+    border-radius: 5px;
+    border-left: 5px solid #007bff;
+    text-align: left;
+  }
+  

@@ -10,17 +10,13 @@ interface Station {
 }
 
 const StationList: React.FC<{ onSelect: (stationId: string) => void }> = ({ onSelect }) => {
-  
   const [stations, setStations] = useState<Station[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
-
-  
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 8; 
+  const itemsPerPage = 8; // 每頁 8 個站點
 
-  
   useEffect(() => {
     axios
       .get("http://127.0.0.1:5000/get-stations")
@@ -28,20 +24,19 @@ const StationList: React.FC<{ onSelect: (stationId: string) => void }> = ({ onSe
         setStations(res.data.stations || []);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(() => {
         setError("Failed to load stations. Please try again later.");
         setLoading(false);
       });
   }, []);
 
-  
   const filteredStations = stations.filter((station) => {
-    const name = station.catchment_name ? String(station.catchment_name).toLowerCase() : "";
-    const id = station.station_id ? String(station.station_id).toLowerCase() : "";
+    const name = typeof station.catchment_name === "string" ? station.catchment_name.toLowerCase() : "";
+    const id = typeof station.station_id === "string" ? station.station_id.toLowerCase() : "";
     return name.includes(searchTerm.toLowerCase()) || id.includes(searchTerm.toLowerCase());
   });
 
-  
+  // 計算總頁數
   const totalPages = Math.ceil(filteredStations.length / itemsPerPage);
   const paginatedStations = filteredStations.slice(
     (currentPage - 1) * itemsPerPage,
@@ -52,61 +47,57 @@ const StationList: React.FC<{ onSelect: (stationId: string) => void }> = ({ onSe
     <div className="station-list-container">
       <h2 className="station-list-title">🚏 Select a Station</h2>
 
-      {}
+      {/* 搜尋框 */}
       <input
         type="text"
         placeholder="🔍 Search by name or ID..."
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);
-          setCurrentPage(1); 
+          setCurrentPage(1); // 重新搜尋時，重置到第一頁
         }}
         className="search-input"
       />
 
-      {}
       {loading ? (
         <p className="text-center text-gray-500">Loading stations...</p>
       ) : error ? (
         <p className="text-center text-red-500">{error}</p>
-      ) : paginatedStations.length > 0 ? (
-        <ul className="station-list">
-          {paginatedStations.map((station) => (
-            <li key={station.station_id} className="station-item">
-              <button
-                onClick={() => onSelect(station.station_id)}
-                className="station-button"
-              >
-                {station.catchment_name || "Unknown"} ({station.station_id})
-              </button>
-            </li>
-          ))}
-        </ul>
       ) : (
-        <p className="text-gray-500 text-center">No stations found.</p>
-      )}
+        <>
+          <ul className="station-list">
+            {paginatedStations.map((station) => (
+              <li key={station.station_id} className="station-item">
+                <button onClick={() => onSelect(station.station_id)} className="station-button">
+                  {station.catchment_name || "Unknown"} ({station.station_id})
+                </button>
+              </li>
+            ))}
+          </ul>
 
-      {}
-      {totalPages > 1 && (
-        <div className="pagination-container">
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            className="pagination-button"
-          >
-            ← Previous
-          </button>
-          <span className="pagination-text">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-            className="pagination-button"
-          >
-            Next →
-          </button>
-        </div>
+          {/* 分頁按鈕 */}
+          {totalPages > 1 && (
+            <div className="pagination-container">
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="pagination-button"
+              >
+                ← Previous
+              </button>
+              <span className="pagination-text">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="pagination-button"
+              >
+                Next →
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -148,7 +148,7 @@ interface MeasurementListProps {
         </h2>
   
         {/* 測項切換按鈕 */}
-        {measurements.length > 1 && (
+        {measurements.length > 0 && (
           <div className="measurement-toggle-container">
             {measurements.map((measurement) => (
               <button

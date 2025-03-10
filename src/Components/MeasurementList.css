@@ -1,59 +1,74 @@
 .measurement-container {
-    max-width: 600px;
+    max-width: 900px;
     margin: auto;
     padding: 20px;
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-  }
-  
-  
-  .measurement-toggle-container {
+}
+
+/* 🔹 修正按鈕間距，防止 overlap */
+.measurement-toggle-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
+    gap: 12px; /* 🔥 增加間距，避免 overlap */
     margin-bottom: 20px;
-  }
-  
-  
-  .measurement-toggle-button {
-    padding: 10px 16px;
+}
+
+/* 🔥 恢復 `toggle button` 特效 */
+.measurement-toggle-button {
+    padding: 12px 18px;
     font-size: 14px;
     font-weight: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-  }
-  
-  
-  .measurement-toggle-button.active {
+    min-width: 180px; /* 確保按鈕大小一致 */
+}
+
+/* 🔥 `active` 狀態 (選中的按鈕) */
+.measurement-toggle-button.active {
     background-color: #007bff;
     color: white;
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
     transform: scale(1.05);
-  }
-  
-  
-  .measurement-toggle-button.inactive {
+}
+
+/* 🔥 `inactive` 狀態 (未選中的按鈕) */
+.measurement-toggle-button.inactive {
     background-color: #ddd;
     color: black;
-  }
-  
-  .measurement-toggle-button:hover {
+}
+
+.measurement-toggle-button:hover {
     background-color: #0056b3;
     color: white;
-  }
-  
-  
-  .measurement-details {
-    margin-top: 20px;
-    padding: 10px;
-    background: #e0f7fa;
-    border-radius: 5px;
-    border-left: 5px solid #007bff;
-    text-align: left;
-  }
-  
+}
+
+/* 🔹 調整 `Back to Stations` 按鈕位置 */
+.button-group {
+    margin-top: 20px; /* 🔥 讓 `Back to Stations` 與 `chart` 保持距離 */
+    display: flex;
+    justify-content: center;
+}
+
+/* 🔹 修正 `chart` 突出問題 */
+.chart-container {
+    width: 100%;
+    max-width: 850px; /* 限制最大寬度，避免超出 */
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto 40px auto; /* 🔥 調整 `margin`，讓 `chart` 與 `button` 保持距離 */
+}
+
+/* 🔹 限制圖表區域，避免溢出 */
+.chart-wrapper {
+    width: 100%;
+    height: 600px;
+    overflow-x: auto; /* 允許橫向滾動，避免圖表擠壓 */
+}

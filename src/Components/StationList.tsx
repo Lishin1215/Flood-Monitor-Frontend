@@ -9,8 +9,9 @@ interface Station {
   catchment_name?: string;
 }
 
-const StationList: React.FC<{ onSelect: (stationId: string) => void }> = ({ onSelect }) => {
-  const [stations, setStations] = useState<Station[]>([]);
+// const StationList: React.FC<{ onSelect: (stationId: string) => void }> = ({ onSelect }) => {
+const StationList: React.FC<{ onSelect: (stationId: string, stationName: string) => void }> = ({ onSelect }) => {
+const [stations, setStations] = useState<Station[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -68,7 +69,7 @@ const StationList: React.FC<{ onSelect: (stationId: string) => void }> = ({ onSe
           <ul className="station-list">
             {paginatedStations.map((station) => (
               <li key={station.station_id} className="station-item">
-                <button onClick={() => onSelect(station.station_id)} className="station-button">
+                <button onClick={() => onSelect(station.station_id, station.catchment_name || "unknown")} className="station-button">
                   {station.catchment_name || "Unknown"} ({station.station_id})
                 </button>
               </li>

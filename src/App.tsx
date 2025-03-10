@@ -4,7 +4,7 @@ import MeasurementList from "./Components/MeasurementList";
 import "./App.css"; 
 
 const App: React.FC = () => {
-  const [selectedStation, setSelectedStation] = useState<string | null>(null);
+  const [selectedStation, setSelectedStation] = useState<{ id: string; name: string } | null>(null);
 
   return (
     <div className="app-container">
@@ -12,9 +12,9 @@ const App: React.FC = () => {
         <h1 className="title">🌊 Flood Monitor Dashboard</h1>
 
         {!selectedStation ? (
-          <StationList onSelect={setSelectedStation} />
+          <StationList onSelect={(id, name) => setSelectedStation({ id, name })} />
         ) : (
-          <MeasurementList stationId={selectedStation} />
+          <MeasurementList stationId={selectedStation.id} stationName={selectedStation.name} />
         )}
 
         <div className="button-group">

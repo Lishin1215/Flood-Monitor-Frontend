@@ -47,7 +47,7 @@ const [stations, setStations] = useState<Station[]>([]);
 
   return (
     <div className="station-list-container">
-      <h2 className="station-list-title">🚏 Select a Station</h2>
+      <h2 className="station-list-title">Select a Station</h2>
 
 
       <input

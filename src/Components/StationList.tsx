@@ -20,7 +20,7 @@ const [stations, setStations] = useState<Station[]>([]);
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_BASE_URL}/get-stations`)
+      .get(`https://flood.api-janet-web.com/get-stations`)
       .then((res) => {
         setStations(res.data.stations || []);
         setLoading(false);

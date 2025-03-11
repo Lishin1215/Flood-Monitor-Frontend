@@ -136,7 +136,8 @@ const ChartComponent: React.FC<ChartProps> = ({ notation }) => {
               <tr>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Water Level (m³/s)</th>
+                {/* <th>Water Level (m³/s)</th> */}
+                <th>Water Level</th>
               </tr>
             </thead>
             <tbody>

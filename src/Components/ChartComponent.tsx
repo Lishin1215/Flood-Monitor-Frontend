@@ -33,7 +33,7 @@ const ChartComponent: React.FC<ChartProps> = ({ notation }) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://flood.api-janet-web.com/get-particular-M/${notation}`)
+      .get(`${process.env.REACT_APP_API_BASE_URL}/get-particular-M/${notation}`)
       .then((res) => {
         if (res.data.hasData && Array.isArray(res.data.readings) && res.data.readings.length > 0) {
           const formattedData = res.data.readings

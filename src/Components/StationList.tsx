@@ -20,7 +20,7 @@ const [stations, setStations] = useState<Station[]>([]);
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/get-stations")
+      .get(`${process.env.REACT_APP_API_BASE_URL}/get-stations`)
       .then((res) => {
         setStations(res.data.stations || []);
         setLoading(false);

@@ -28,12 +28,12 @@ const ChartComponent: React.FC<ChartProps> = ({ notation }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [chartDate, setChartDate] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // 🚀 每頁顯示 10 筆數據
+  const itemsPerPage = 10; 
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://127.0.0.1:5000/get-particular-M/${notation}`)
+      .get(`${process.env.REACT_APP_API_BASE_URL}/get-particular-M/${notation}`)
       .then((res) => {
         if (res.data.hasData && Array.isArray(res.data.readings) && res.data.readings.length > 0) {
           const formattedData = res.data.readings
@@ -59,7 +59,7 @@ const ChartComponent: React.FC<ChartProps> = ({ notation }) => {
           formattedData.push({
             dateTime: now.toISOString(),
             timeLabel: nowTimeLabel,
-            value: null, // 🚀 避免 `null` 值出現在表格
+            value: null,
           });
 
           const lastDate = new Date().toLocaleDateString("en-GB", {
@@ -95,10 +95,10 @@ const ChartComponent: React.FC<ChartProps> = ({ notation }) => {
     return <div className="chart-container"><p className="text-gray-500">No chart data available.</p></div>;
   }
 
-  // 🚀 計算當前分頁的數據
+ 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const paginatedData = data
-    .filter((item) => item.value !== null) // ❌ 過濾掉 `null` 值
+    .filter((item) => item.value !== null) 
     .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
@@ -112,7 +112,7 @@ const ChartComponent: React.FC<ChartProps> = ({ notation }) => {
             <XAxis dataKey="timeLabel" angle={-30} textAnchor="end" />
             <YAxis
               label={{
-                value: "Water Level (m³/s)",
+                // value: "Water Level (m³/s)",
                 angle: -90,
                 position: "outsideLeft",
                 dy: 10,

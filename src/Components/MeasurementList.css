@@ -1,23 +1,23 @@
 .measurement-container {
     max-width: 900px;
     margin: auto;
-    padding: 20px;
+    padding: 300px 20px 20px;
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-/* 🔹 修正按鈕間距，防止 overlap */
+
 .measurement-toggle-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px; /* 🔥 增加間距，避免 overlap */
+    gap: 12px; 
     margin-bottom: 20px;
 }
 
-/* 🔥 恢復 `toggle button` 特效 */
+
 .measurement-toggle-button {
     padding: 12px 18px;
     font-size: 14px;
@@ -26,10 +26,10 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    min-width: 180px; /* 確保按鈕大小一致 */
+    min-width: 180px; 
 }
 
-/* 🔥 `active` 狀態 (選中的按鈕) */
+
 .measurement-toggle-button.active {
     background-color: #007bff;
     color: white;
@@ -37,7 +37,7 @@
     transform: scale(1.05);
 }
 
-/* 🔥 `inactive` 狀態 (未選中的按鈕) */
+
 .measurement-toggle-button.inactive {
     background-color: #ddd;
     color: black;

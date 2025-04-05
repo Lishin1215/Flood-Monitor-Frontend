@@ -23,6 +23,8 @@ interface ChartProps {
 }
 
 const ChartComponent: React.FC<ChartProps> = ({ notation }) => {
+  // =============================================
+  // useState
   const [data, setData] = useState<WaterLevelReading[]>([]);
   const [hasData, setHasData] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(true);
@@ -30,6 +32,8 @@ const ChartComponent: React.FC<ChartProps> = ({ notation }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10; 
 
+  // =============================================
+  // function
   useEffect(() => {
     setLoading(true);
     axios
@@ -101,6 +105,9 @@ const ChartComponent: React.FC<ChartProps> = ({ notation }) => {
     .filter((item) => item.value !== null) 
     .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
+  
+  // =============================================
+  //start of the ui
   return (
     <div className="chart-container">
       <h2 className="chart-title">Data for the past 24 hours ({chartDate})</h2>

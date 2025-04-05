@@ -17,12 +17,17 @@ interface MeasurementListProps {
   }
   
   const MeasurementList: React.FC<MeasurementListProps> = ({ stationId, stationName }) => {
+    // =============================================
+    // useState
     const [measurements, setMeasurements] = useState<Measurement[]>([]);
     const [selectedNotation, setSelectedNotation] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-  
-    useEffect(() => {
+
+
+    // =============================================
+    // function 
+    useEffect(() => { // Component 一出現就會執行
       axios
         .get(`https://flood.api-janet-web.com/get-measurement/${stationId}`)
         .then((res) => {
@@ -30,6 +35,7 @@ interface MeasurementListProps {
           setMeasurements(fetchedMeasurements);
   
           if (fetchedMeasurements.length > 0) {
+            // set "notation" so that can pass it to chart
             setSelectedNotation(fetchedMeasurements[0].notation);
           }
   
@@ -40,7 +46,8 @@ interface MeasurementListProps {
             setError("Failed to load measurements. Please try again later.");
             setLoading(false);
         });
-    }, [stationId]);
+    }, [stationId]); // *** need?
+  
   
     if (loading) {
         return <p className="text-center text-gray-500">Loading measurements...</p>;
@@ -60,7 +67,9 @@ interface MeasurementListProps {
         </div>
       );
     }
-  
+
+    // =============================================
+    //start of the ui
     return (
       <div className="measurement-container">
         <h2 className="measurement-title">

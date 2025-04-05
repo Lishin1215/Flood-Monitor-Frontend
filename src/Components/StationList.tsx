@@ -9,16 +9,20 @@ interface Station {
   station_id: string;
   catchment_name?: string;
 }
-
+// function need to be passed to be used
 const StationList: React.FC<{ onSelect: (stationId: string, stationName: string) => void }> = ({ onSelect }) => {
-const [stations, setStations] = useState<Station[]>([]);
+  // =============================================
+  // useState
+  const [stations, setStations] = useState<Station[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 8;
 
-  useEffect(() => {
+  // =============================================
+  // function
+  useEffect(() => {  // Component 一出現就會執行
     axios
       .get(`https://flood.api-janet-web.com/get-stations`)
       .then((res) => {
@@ -32,19 +36,28 @@ const [stations, setStations] = useState<Station[]>([]);
       });
   }, []);
 
-  const filteredStations = stations.filter((station) => {
+  // =============================================
+  // variable ("must" tirgger when "useState change")
+
+  // use "keyword" to filter stations --> Station[]
+  const filteredStations = stations.filter((station) => { 
     const name = typeof station.catchment_name === "string" ? station.catchment_name.toLowerCase() : "";
     const id = typeof station.station_id === "string" ? station.station_id.toLowerCase() : "";
     return name.includes(searchTerm.toLowerCase()) || id.includes(searchTerm.toLowerCase());
   });
 
-  
-  const totalPages = Math.ceil(filteredStations.length / itemsPerPage);
+  // calculate "total page numbers" -> number(int)
+  const totalPages = Math.ceil(filteredStations.length / itemsPerPage); //(ex. 11.5 --> 12)
+
+  // get "8 items" from filterStaions -> Station[]
   const paginatedStations = filteredStations.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
+
+  // =============================================
+  //start of the ui
   return (
     <div className="station-list-container">
       <h2 className="station-list-title">Select a Station</h2>

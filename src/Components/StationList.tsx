@@ -22,7 +22,7 @@ const StationList: React.FC<{ onSelect: (stationId: string, stationName: string)
 
   // =============================================
   // function
-  useEffect(() => {  // Component 一出現就會執行
+  useEffect(() => {  // run when Component appear 
     axios
       .get(`https://flood.api-janet-web.com/get-stations`)
       .then((res) => {

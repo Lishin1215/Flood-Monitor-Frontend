@@ -49,34 +49,22 @@ interface MeasurementListProps {
     }, [stationId]); // *** need?
   
   
-    if (loading) {
-        return <p className="text-center text-gray-500">Loading measurements...</p>;
-    }
-  
-    if (error) {
-      return <p className="text-center text-red-500">{error}</p>;
-    }
-  
-    if (measurements.length === 0) {
-      return (
-        <div className="measurement-container">
-          <h2 className="measurement-title">
-            {stationName} ({stationId})
-          </h2>
-          <p className="measurement-text">No measurements found.</p>
-        </div>
-      );
-    }
-
     // =============================================
-    //start of the ui
-    return (
-      <div className="measurement-container">
-        <h2 className="measurement-title">
-          {stationName} ({stationId})
-        </h2>
-  
-        {measurements.length > 0 && (
+  // start of UI
+  return (
+    <div className="measurement-container">
+      <h2 className="measurement-title">
+        {stationName} ({stationId})
+      </h2>
+
+      {loading ? (
+        <p className="text-center text-gray-500">Loading measurements...</p>
+      ) : error ? (
+        <p className="text-center text-red-500">{error}</p>
+      ) : measurements.length === 0 ? (
+        <p className="measurement-text">No measurements found.</p>
+      ) : (
+        <>
           <div className="measurement-toggle-container">
             {measurements.map((measurement) => (
               <button
@@ -90,12 +78,12 @@ interface MeasurementListProps {
               </button>
             ))}
           </div>
-        )}
-  
-        {selectedNotation && <ChartComponent notation={selectedNotation} />}
-      </div>
-    );
-  };
-  
-  export default MeasurementList;
-  
+
+          {selectedNotation && <ChartComponent notation={selectedNotation} />}
+        </>
+      )}
+    </div>
+  );
+};
+
+export default MeasurementList;
